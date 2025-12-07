@@ -1,11 +1,16 @@
 <% content_for :title, "New product" %>
 
-<h1>New product</h1>
+<div class="container mt-6">
+  <div class="columns is-centered">
+    <div class="column is-two-thirds">
+      <h1 class="title is-2 has-text-centered">新しい商品を作成</h1>
 
-<%= render "form", product: @product %>
+      <%# フォーム本体をレンダリング %>
+      <%= render "form", product: @product %>
 
-<br>
-
-<div>
-  <%= link_to "Back to products", products_path %>
+      <div class="mt-5 has-text-centered">
+        <%= link_to "商品一覧へ戻る", products_path, class: "button is-link is-light" %>
+      </div>
+    </div>
+  </div>
 </div>
