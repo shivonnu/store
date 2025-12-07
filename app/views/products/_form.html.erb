@@ -34,13 +34,15 @@
     </div>
   </div>
 
-  <div class="field">
-    <%= form.label :image_url, "画像URL", class: "label" %>
+<div class="field">
+    <%= form.label :image_url, "画像ファイル名 (例: cat_food.jpg)", class: "label" %>
     <div class="control">
-      <%= form.text_field :image_url, class: "input" %>
+      <%# データベースの image_url カラムに値を保存する入力欄 %>
+      <%= form.text_field :image_url, class: "input", placeholder: "app/assets/images/ に置いたファイル名を入力" %>
     </div>
+    <p class="help">app/assets/images/ フォルダに置いたファイル名を入力してください。</p>
   </div>
-
+  
   <div class="field is-grouped is-grouped-centered mt-5">
     <div class="control">
       <%= form.submit "保存する", class: "button is-primary is-large" %>

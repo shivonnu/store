@@ -1,16 +1,22 @@
-<% content_for :title, "New product" %>
+<%# app/views/products/new.html.erb %>
 
-<div class="container mt-6">
-  <div class="columns is-centered">
-    <div class="column is-two-thirds">
-      <h1 class="title is-2 has-text-centered">新しい商品を作成</h1>
-
-      <%# フォーム本体をレンダリング %>
-      <%= render "form", product: @product %>
-
-      <div class="mt-5 has-text-centered">
-        <%= link_to "商品一覧へ戻る", products_path, class: "button is-link is-light" %>
-      </div>
+<% if Rails.env.development? %>
+  <% content_for :title, "New product (DEV ONLY)" %>
+  
+  <div class="container mt-6">
+    <h1 class="title is-2 has-text-centered">新しい商品を作成（開発環境限定）</h1>
+    
+    <%= render "form", product: @product %>
+    
+    <div class="mt-5 has-text-centered">
+      <%= link_to "商品一覧へ戻る", products_path, class: "button is-link is-light" %>
     </div>
   </div>
-</div>
+
+<% else %>
+  <%# 開発環境でない場合 (本番など) に表示する内容 %>
+  <div class="container mt-6 has-text-centered">
+    <p class="title is-4 has-text-danger">この機能は現在ご利用いただけません。</p>
+    <%= link_to "商品一覧へ", products_path, class: "button is-primary" %>
+  </div>
+<% end %>

@@ -1,33 +1,63 @@
-<%# app/views/products/index.html.erb %>
+<% content_for :title, "商品一覧" %>
 
-<div class="container"> <%# 画面中央寄せのコンテナ %>
-  <h1 class="title is-2">Products</h1> <%# 大きなタイトルと Bulma のクラスを適用 %>
+<div class="container mt-6">
+  <h1 class="title is-2 has-text-centered">🛒 商品一覧</h1>
+  <p class="subtitle has-text-centered">気になる商品を選んでカートに入れてみましょう！</p>
 
-  <p class="mb-4"> <%# mb-4 は margin-bottom: 1.5rem の意 %>
-    <%= link_to "New product", new_product_path, class: "button is-primary" %> <%# プライマリーボタンクラスを適用 %>
-  </p>
+  <%# BulmaのColumns (グリッド) システムを開始 %>
+  <%# is-multiline: 複数行に対応、is-variable: 列の間隔を調整 %>
+  <div class="columns is-multiline is-variable is-8">
+    
+    <% @products.each do |product| %>
+      <%# column: 各商品を一つの列として定義 (デスクトップで4列表示) %>
+      <div class="column is-one-quarter-desktop is-half-tablet is-full-mobile">
+        
+        <%# Cardコンポーネントの開始 %>
+        <div class="card">
+          
+          <%# 1. Card Image (画像部分) %>
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <% if product.image_url.present? %>
+                <%# app/assets/images/ から画像を読み込む %>
+                <%= image_tag product.image_url, alt: product.name %>
+              <% else %>
+                <%# 画像がない場合のプレースホルダー %>
+                <img src="https://via.placeholder.com/600x450?text=No+Image" alt="Placeholder image">
+              <% end %>
+            </figure>
+          </div>
 
-  <table class="table is-fullwidth is-striped"> <%# 幅100%、ストライプ柄のテーブルクラスを適用 %>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th colspan="3"></th> <%# 編集・詳細・削除リンク用の空白セル %>
-      </tr>
-    </thead>
+          <%# 2. Card Content (テキスト部分) %>
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <%# 商品名と詳細リンク %>
+                <p class="title is-4">
+                  <%= link_to product.name, product, class: "has-text-dark" %>
+                </p>
+                <%# 価格 (通貨表示を分かりやすく) %>
+                <p class="subtitle is-6 has-text-danger">
+                  <%= number_to_currency(product.price, precision: 0, unit: "¥") %>
+                </p>
+              </div>
+            </div>
 
-    <tbody>
-      <% @products.each do |product| %>
-        <tr>
-          <td><%= product.name %></td>
-          <td><%= product.description %></td>
-          <td><%= product.price %></td>
-          <td><%= link_to "Show", product %></td>
-          <td><%= link_to "Edit", edit_product_path(product) %></td>
-          <td><%= link_to "Destroy", product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+            <div class="content is-small">
+              <%# 説明文を短く表示 %>
+              <%= truncate(product.description, length: 50) %>
+            </div>
+          </div>
+
+          <%# 3. Card Footer (ボタン部分) %>
+          <footer class="card-footer">
+            <%= link_to "詳細を見る", product, class: "card-footer-item button is-text" %>
+            <%# ここに将来「カートに入れる」ボタンを実装します %>
+            <a href="#" class="card-footer-item button is-success is-light" disabled>カートに入れる</a>
+          </footer>
+        </div>
+        
+      </div>
+    <% end %>
+  </div>
 </div>

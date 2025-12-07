@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
-
+# new と create アクションの前に check_development_env を実行
+  before_action :check_development_env, only: [:new, :create, :edit, :update] # 👈 追
   # GET /products or /products.json
   def index
     @products = Product.all
@@ -58,13 +59,22 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def check_development_env
+    # 環境が 'development' でない場合
+    unless Rails.env.development?
+      # ユーザーを商品一覧ページにリダイレクトし、エラーメッセージを表示
+      redirect_to products_path, alert: "この機能は開発環境でのみご利用いただけます。"
+    end
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.
-    def product_params
-      params.expect(product: [ :name, :description, :price ])
-    end
+  def product_params
+    # :name, :description, :price に加えて :image_url を許可します
+    params.require(:product).permit(:name, :description, :price, :image_url)
+  end
 end
