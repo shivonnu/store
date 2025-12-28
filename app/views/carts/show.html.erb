@@ -1,0 +1,52 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">現在のカート内（神器候補）</h1>
+    
+    <% if @cart_products.any? %>
+      <table class="table is-fullwidth">
+        <thead>
+          <tr>
+            <th>商品名</th>
+            <th>価格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @cart_products.each do |product| %>
+            <tr>
+              <td><%= product.name %></td>
+              <td>¥<%= product.price %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      
+      <hr>
+      
+      <%# ここに後で「合言葉」の入力欄を作ります！ %>
+    <div class="box mt-5">
+    <h2 class="subtitle">最終確認ニャ！</h2>
+
+    <%= form_with url: checkout_cart_path, method: :post, local: true, data: { turbo: false } do |f| %>
+        <div class="field">
+        <label class="label">秘密の合言葉</label>
+        <div class="control">
+            <%= f.text_field :password, class: "input", placeholder: "ここに合言葉を入力..." %>
+        </div>
+        </div>
+
+        <div class="control mt-4">
+        <%= f.submit "決済して地球を救う（？）", class: "button is-danger is-large is-fullwidth" %>
+        </div>
+    <% end %>
+    </div>
+
+    <% else %>
+      <p class="notification is-danger">まだ何も入っていないニャ。神器を探しに行くニャ！</p>
+    <% end %>
+
+
+
+    <%= link_to '買い物を続ける', products_path, class: "button is-light" %>
+  </div>
+</section>
+

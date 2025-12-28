@@ -1,63 +1,48 @@
-<% content_for :title, "商品一覧" %>
-
-<div class="container mt-6">
-  <h1 class="title is-2 has-text-centered">🛒 商品一覧</h1>
-  <p class="subtitle has-text-centered">気になる商品を選んでカートに入れてみましょう！</p>
-
-  <%# BulmaのColumns (グリッド) システムを開始 %>
-  <%# is-multiline: 複数行に対応、is-variable: 列の間隔を調整 %>
-  <div class="columns is-multiline is-variable is-8">
-    
-    <% @products.each do |product| %>
-      <%# column: 各商品を一つの列として定義 (デスクトップで4列表示) %>
-      <div class="column is-one-quarter-desktop is-half-tablet is-full-mobile">
-        
-        <%# Cardコンポーネントの開始 %>
-        <div class="card">
-          
-          <%# 1. Card Image (画像部分) %>
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <% if product.image_url.present? %>
-                <%# app/assets/images/ から画像を読み込む %>
-                <%= image_tag product.image_url, alt: product.name %>
-              <% else %>
-                <%# 画像がない場合のプレースホルダー %>
-                <img src="https://via.placeholder.com/600x450?text=No+Image" alt="Placeholder image">
-              <% end %>
-            </figure>
-          </div>
-
-          <%# 2. Card Content (テキスト部分) %>
-          <div class="card-content">
-            <div class="media">
-              <div class="media-content">
-                <%# 商品名と詳細リンク %>
-                <p class="title is-4">
-                  <%= link_to product.name, product, class: "has-text-dark" %>
-                </p>
-                <%# 価格 (通貨表示を分かりやすく) %>
-                <p class="subtitle is-6 has-text-danger">
-                  <%= number_to_currency(product.price, precision: 0, unit: "¥") %>
-                </p>
-              </div>
-            </div>
-
-            <div class="content is-small">
-              <%# 説明文を短く表示 %>
-              <%= truncate(product.description, length: 50) %>
-            </div>
-          </div>
-
-          <%# 3. Card Footer (ボタン部分) %>
-          <footer class="card-footer">
-            <%= link_to "詳細を見る", product, class: "card-footer-item button is-text" %>
-            <%# ここに将来「カートに入れる」ボタンを実装します %>
-            <a href="#" class="card-footer-item button is-success is-light" disabled>カートに入れる</a>
-          </footer>
-        </div>
-        
-      </div>
-    <% end %>
+<section class="hero is-warning is-small mb-5">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-4">🚀 地球救済ミッション発動中！</h2>
+      <p class="subtitle is-6">
+        リストから<strong>[★]がついた3つの神器</strong>をカートに入れて決済すると世界が救われます。
+      </p>
+    </div>
   </div>
+</section>
+
+<div class="columns is-multiline">
+  <% @products.each do |product| %>
+    <div class="column is-4">
+      <div class="card">
+        <div class="card-image">
+        <figure class="image is-4by3">
+          <%# 修正：image_urlがあり、かつ、ファイルが実際にフォルダ内に存在するかチェックする %>
+          <% if product.image_url.present? && File.exist?(Rails.root.join('app/assets/images', product.image_url)) %>
+            <%= image_tag product.image_url, alt: product.name %>
+          <% else %>
+            <%# ファイルがない場合はこっちを表示 %>
+            <img src="https://via.placeholder.com/600x450?text=<%= u product.name %>" alt="Placeholder">
+          <% end %>
+        </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <p class="title is-4"><%= product.name %></p>
+              <p class="subtitle is-6">¥<%= product.price %></p>
+            </div>
+          </div>
+          <div class="content">
+            <%= product.description %>
+          </div>
+          
+          <%# カートに入れるボタン %>
+          <%= button_to "カートに入れるニャ！", add_item_cart_path(product_id: product.id), method: :post, class: "button is-warning is-fullwidth" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="has-text-centered mt-5">
+  <%= link_to '現在のカートを見る', cart_path, class: "button is-info is-large" %>
 </div>

@@ -11,6 +11,21 @@
 </head>
 
 <body>
+  <%# フラッシュメッセージ表示用 (Bulmaのスタイル) %>
+  <% if flash[:notice] %>
+    <div class="notification is-success is-light has-text-centered">
+      <button class="delete"></button>
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="notification is-danger is-light has-text-centered">
+      <button class="delete"></button>
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
   <%= yield %>
 </body>
 </html>
