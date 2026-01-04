@@ -4,9 +4,9 @@ Product.destroy_all
 # 商品リストの作成
 products = [
   # --- 三種の神器 ---
-  { name: "[★] いにしえのマタタビ", price: 1985, description: "時代を超えて愛される、伝説の香りがするマタタビ。", image_url: "matatabi_old.jpg" },
+  { name: "[★] いにしえのマタタビ", price: 1985, description: "時代を超えて愛される、伝説の香りがするマタタビ。", image_url: "matatabi_old.png" },
   { name: "[★] 宇宙の法則を解くヒモ", price: 2500, description: "このヒモの動きには宇宙の真理が隠されているニャン。", image_url: "space_string.png" },
-  { name: "[★] 伝説のダンボール城", price: 5888, description: "圧倒的な防御力を誇る。選ばれし猫のみが入城を許される。", image_url: "cardboard_castle.jpg" },
+  { name: "[★] 伝説のダンボール城", price: 5888, description: "圧倒的な防御力を誇る。選ばれし猫のみが入城を許される。", image_url: "cardboard_castle.png" },
   
   # --- 普通の猫グッズ 12個 ---
   { name: "猫じゃらしデラックス", price: 1200, description: "最高級の羽根を使用した、食いつき抜群の逸品。", image_url: "nekojyarasi_deluxe.png" },

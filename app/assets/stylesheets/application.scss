@@ -1,1 +1,9 @@
 @import "bulma";
+
+/* 商品画像の枠を一定にし、中身をきれいに収める */
+.card .card-image .image.is-4by3 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover !important;
+  object-position: center;
+}
