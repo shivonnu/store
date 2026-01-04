@@ -9,7 +9,7 @@ products = [
   { name: "[★] 伝説のダンボール城", price: 5888, description: "圧倒的な防御力を誇る。選ばれし猫のみが入城を許される。", image_url: "cardboard_castle.jpg" },
   
   # --- 普通の猫グッズ 12個 ---
-  { name: "猫じゃらしデラックス", price: 1200, description: "最高級の羽根を使用した、食いつき抜群の逸品。", image_url: "" },
+  { name: "猫じゃらしデラックス", price: 1200, description: "最高級の羽根を使用した、食いつき抜群の逸品。", image_url: "nekojyarasi_deluxe.png" },
   { name: "自動給餌器：カリカリくん", price: 8500, description: "決まった時間にカリカリが出る魔法の箱。", image_url: "" },
   { name: "おしゃれな首輪（赤）", price: 1500, description: "鈴の音が心地よい、イタリア製の本革首輪。", image_url: "" },
   { name: "ふわふわキャットドーム", price: 4200, description: "冬でもポカポカ。一度入ったら出てこられない。", image_url: "" },
