@@ -1,6 +1,6 @@
 <%# app/views/products/new.html.erb %>
 
-<% if Rails.env.development? %>
+<% if Rails.env.local? %>
   <% content_for :title, "New product (DEV ONLY)" %>
   
   <div class="container mt-6">

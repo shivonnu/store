@@ -1,31 +1,47 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Cat Goods Store</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+  <head>
+    <title><%= content_for(:title) || "ネコじゃらしストア" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
 
-  <%= javascript_importmap_tags %>
-</head>
+  <body>
+    <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <%= link_to root_path, class: "navbar-item" do %>
+          <strong>🐱 ネコじゃらしストア</strong>
+        <% end %>
+      </div>
+      <div class="navbar-menu is-active">
+        <div class="navbar-end">
+          <%= link_to "商品一覧", products_path, class: "navbar-item" %>
+          <%= link_to "カートを見る", cart_path, class: "navbar-item" %>
+          <% if Rails.env.local? %>
+            <%= link_to "商品を追加", new_product_path, class: "navbar-item" %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
 
-<body>
-  <%# フラッシュメッセージ表示用 (Bulmaのスタイル) %>
-  <% if flash[:notice] %>
-    <div class="notification is-success is-light has-text-centered">
-      <button class="delete"></button>
-      <%= flash[:notice] %>
-    </div>
-  <% end %>
+    <% if notice.present? %>
+      <div class="notification is-success is-light has-text-centered mb-0" data-controller="flash">
+        <button class="delete" data-action="flash#dismiss" aria-label="閉じる"></button>
+        <%= notice %>
+      </div>
+    <% end %>
 
-  <% if flash[:alert] %>
-    <div class="notification is-danger is-light has-text-centered">
-      <button class="delete"></button>
-      <%= flash[:alert] %>
-    </div>
-  <% end %>
+    <% if alert.present? %>
+      <div class="notification is-danger is-light has-text-centered mb-0" data-controller="flash">
+        <button class="delete" data-action="flash#dismiss" aria-label="閉じる"></button>
+        <%= alert %>
+      </div>
+    <% end %>
 
-  <%= yield %>
-</body>
+    <%= yield %>
+  </body>
 </html>

@@ -8,6 +8,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get products_url
     assert_response :success
+    assert_select "img[alt=?]", @product.name
   end
 
   test "should get new" do
@@ -17,7 +18,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create product" do
     assert_difference("Product.count") do
-      post products_url, params: { product: { description: @product.description, name: @product.name, price: @product.price } }
+      post products_url, params: { product: { description: @product.description, name: "新しいおもちゃ", price: @product.price, image_url: @product.image_url } }
     end
 
     assert_redirected_to product_url(Product.last)
@@ -26,6 +27,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   test "should show product" do
     get product_url(@product)
     assert_response :success
+    assert_select "img[alt=?]", @product.name
   end
 
   test "should get edit" do
