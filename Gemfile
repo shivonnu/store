@@ -63,5 +63,5 @@ group :test do
 end
 
 # Add Bulma CSS framework
-gem 'bulma-rails', '~> 1.0'
-gem 'sassc-rails' # sassc-rails も一緒に必要になることが多い
+gem "bulma-rails", "~> 1.0"
+gem "dartsass-rails"
