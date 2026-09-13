@@ -1,10 +1,14 @@
-<p style="color: green"><%= notice %></p>
+<section class="section">
+  <div class="container">
+    <%= render @product %>
 
-<%= render @product %>
-
-<div>
-  <%= link_to "Edit this product", edit_product_path(@product) %> |
-  <%= link_to "Back to products", products_path %>
-
-  <%= button_to "Destroy this product", @product, method: :delete %>
-</div>
+    <div class="buttons">
+      <%= button_to "カートに入れるニャ！", add_item_cart_path(product_id: @product.id), method: :post, class: "button is-warning" %>
+      <%= link_to "商品一覧へ", products_path, class: "button is-light" %>
+      <% if Rails.env.local? %>
+        <%= link_to "編集", edit_product_path(@product), class: "button is-link is-light" %>
+        <%= button_to "削除", @product, method: :delete, class: "button is-danger is-light", form: { data: { turbo_confirm: "削除するニャ？" } } %>
+      <% end %>
+    </div>
+  </div>
+</section>

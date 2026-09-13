@@ -1,12 +1,10 @@
-<% content_for :title, "Editing product" %>
+<% content_for :title, "商品を編集" %>
 
-<h1>Editing product</h1>
-
-<%= render "form", product: @product %>
-
-<br>
-
-<div>
-  <%= link_to "Show this product", @product %> |
-  <%= link_to "Back to products", products_path %>
+<div class="container mt-6">
+  <h1 class="title is-2 has-text-centered">商品を編集</h1>
+  <%= render "form", product: @product %>
+  <div class="mt-5 has-text-centered">
+    <%= link_to "この商品を見る", @product, class: "button is-link is-light" %>
+    <%= link_to "商品一覧へ戻る", products_path, class: "button is-light" %>
+  </div>
 </div>

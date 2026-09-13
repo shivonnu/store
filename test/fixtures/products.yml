@@ -1,11 +1,25 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyText
-  price: 1
+  name: 猫じゃらしデラックス
+  description: 最高級の羽根を使用した、食いつき抜群の逸品。
+  price: 1200
+  image_url: nekojyarasi_deluxe.png
 
 two:
-  name: MyString
-  description: MyText
-  price: 1
+  name: "[★] いにしえのマタタビ"
+  description: 時代を超えて愛される、伝説の香りがするマタタビ。
+  price: 1985
+  image_url: matatabi_old.png
+
+string_of_space:
+  name: "[★] 宇宙の法則を解くヒモ"
+  description: このヒモの動きには宇宙の真理が隠されているニャン。
+  price: 2500
+  image_url: space_string.png
+
+cardboard_castle:
+  name: "[★] 伝説のダンボール城"
+  description: 圧倒的な防御力を誇る。選ばれし猫のみが入城を許される。
+  price: 5888
+  image_url: cardboard_castle.png
