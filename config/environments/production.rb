@@ -12,6 +12,10 @@ Rails.application.configure do
   # Full error reports are disabled.
   config.consider_all_requests_local = false
 
+  # Render などでは SECRET_KEY_BASE だけで起動できるようにする。
+  # 誤った RAILS_MASTER_KEY があると credentials の復号で落ちるため必須にしない。
+  config.require_master_key = false
+
   # Turn on fragment caching in view templates.
   config.action_controller.perform_caching = true
 
@@ -31,7 +35,7 @@ Rails.application.configure do
   config.force_ssl = true
 
   # Skip http-to-https redirect for the default health check endpoint.
-  # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
+  config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 
   # Log to STDOUT with the current request id as a default log tag.
   config.log_tags = [ :request_id ]
@@ -58,7 +62,12 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  config.action_mailer.default_url_options = {
+    host: ENV.fetch("RENDER_EXTERNAL_HOSTNAME", "example.com"),
+    protocol: "https"
+  }
+
+  config.hosts << ENV["RENDER_EXTERNAL_HOSTNAME"] if ENV["RENDER_EXTERNAL_HOSTNAME"].present?
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {
